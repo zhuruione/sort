@@ -19,4 +19,6 @@ void TimeCount::end() {
 
     // 输出运行时间
     std::cout << "程序段运行时间: " << duration.count() << " 毫秒" << std::endl;
+
+    this->current = std::chrono::high_resolution_clock::now();
 }
