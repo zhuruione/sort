@@ -59,8 +59,9 @@ template<typename T>
 static void shellinsertSort(vector<T> &v, int gap) {
     for (int i = gap; i < v.size(); i += gap) {
         T tem = v[i];
-        for (int j = i - gap; j < v.size() && tem > v[j]; j -= gap) {
-            v[]
+        for (int j = i - gap; j >= 0 && tem > v[j]; j -= gap) {
+            v[j + gap] = v[j];
+            v[j] = tem;
         }
     }
 }
