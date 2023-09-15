@@ -24,8 +24,8 @@ vector<int> randint(int len) {
 int main() {
 
     TimeCount t;
-//    SortVector<int> sortVector({3,4,1,2});
-    SortVector<int> sortVector(randint(10000));
+    SortVector<int> sortVector({10,9,8,7,6,5,4,3,6,2,1,0});
+//    SortVector<int> sortVector(randint(1e6));
 //    SortVector<int> sortVector(randint(10));
 
 //    sortVector.insertSort();  //插入排序
@@ -34,7 +34,8 @@ int main() {
 //    sortVector.SelectSort();  //选择排序
 //    sortVector.SelectSortAdvance();   //选择排序改进版
 //    sortVector.QuickSortHoare();      //快速排序Hoare
-    sortVector.HeapSort();      //堆排序
+//    sortVector.HeapSort();      //堆排序
+    sortVector.MergeSort();
     sortVector.print();
     t.end();
 }

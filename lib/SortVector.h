@@ -24,9 +24,12 @@ public:
     void BubbleSort();  //冒泡排序
     void HeapSort();    //堆排序
     void QuickSortHoare();   //快速排序 hoare版本(左右指针法)
+    void MergeSort();   //归并排序
 
     std::vector<T> getList() { return v; }
 };
+
+
 
 
 #endif //SORT_SORTVECTOR_H

@@ -130,7 +130,7 @@ void SortVector<T>::BubbleSort() {
 4.此时key的左边都是小于key的数，key的右边都是大于key的数
 5.将key的左序列和右序列再次进行这种单趟排序，如此反复操作下去，直到左右序列只有一个数据，或是左右序列不存在时，便停止操作，此时此部分已有序
 */
-//快速排序  hoare版本(左右指针法)
+//快速排序  hoare版本(左右指针法)    最强排序算法
 //将数组分为左右两边的递归方法
 template<typename T>
 void QuickSortHoareRecursionFun(vector<T> &v, int left, int right) {
@@ -187,11 +187,45 @@ void SortVector<T>::HeapSort() {
     for (int i = (v.size() - 2) / 2; i >= 0; i--) {
         setHeap(v, i, v.size());
     }
-    swap(v[0],v[v.size()-1]);//因为已经是大根堆了,直接交换头尾元素
+    swap(v[0], v[v.size() - 1]);//因为已经是大根堆了,直接交换头尾元素
     //依次将树根和最后的节点互换,然后再次维护一下大根堆,时间复杂度为n*log(n)
-    for (int i = v.size()-2; i >=0 ; --i) {
-        setHeap(v,0,i);//继续维护大根堆
-        swap(v[0],v[i]);
+    for (int i = v.size() - 2; i >= 0; --i) {
+        setHeap(v, 0, i);//继续维护大根堆
+        swap(v[0], v[i]);
     }
+}
+//----------------------------------------------------------------------------------------------------------------------
+
+
+//归并排序---------------------------------------------------------------------------------------------------------------
+//将两个排序好的数组合并
+template<typename T>
+void MergeSortMerge(vector<T> &v, int left, int right) {
+    int mid = (right + left) >> 1;//数组v的前半个部分的右边界
+    vector<T> v_tem(v.begin() + mid + 1, v.begin()+right+1); //获取数组的后半部分
+    int i = right;  //整合数组的指针
+    int v_tem_p = v_tem.size() - 1;
+    for (; mid >= left && v_tem_p >= 0 > 0; --i) {  //只需保证前半部分不要遍历到左边界,并且后半部分不能遍历超过中间边界
+        v[i] = v[mid] >= v_tem[v_tem_p] ? v[mid--] : v_tem[v_tem_p--];
+    }
+    for (; v_tem_p >= 0; --v_tem_p,--i) {  //若右半部分的数组还没遍历完,说明左边已经全部擦痕如到了v中,只需将右半部分剩下的添加到v中即可
+        v[i]=v_tem[v_tem_p];
+    }
+}
+//归并排序的递归方法,将数组分为左右两个部分,将两边都排序好后再进行合并
+template<typename T>
+void MergeSortRecursionFun(vector<T> &v, int left, int right) {
+    //如果数组数量小于2,递归结束
+    if (left >= right)
+        return;
+    int mid = (left + right) >> 1;
+    MergeSortRecursionFun(v, left, mid);        //排序左边的数组
+    MergeSortRecursionFun(v, mid+1, right);   //排序右边的数组
+    MergeSortMerge(v, left, right);             //合并两边数组
+}
+
+template<typename T>
+void SortVector<T>::MergeSort() {
+    MergeSortRecursionFun(v,0,v.size()-1);
 }
 //----------------------------------------------------------------------------------------------------------------------
